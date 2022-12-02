@@ -19,6 +19,7 @@ class SkillBox extends StatelessWidget {
       child: Column(
         children: [
           Container(
+            margin: const EdgeInsets.all(8),
             padding: const EdgeInsets.all(15),
             decoration: BoxDecoration(
               border: Border.all(

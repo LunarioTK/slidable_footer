@@ -25,17 +25,15 @@ class PanelWidget extends StatelessWidget {
 
   //Traço antes do About
   Widget buildHandle() => GestureDetector(
-        onTap: togglePanel,
+        onTap: (() => togglePanel()),
         child: Center(
           child: Container(
-            width: 40,
-            height: 5,
-            decoration: BoxDecoration(
+              width: 40,
+              height: 6,
+              decoration: BoxDecoration(
                 color: Colors.grey[300],
-                borderRadius: const BorderRadius.vertical(
-                  top: Radius.circular(12),
-                )),
-          ),
+                borderRadius: const BorderRadius.all(Radius.circular(12)),
+              )),
         ),
       );
 
@@ -47,7 +45,7 @@ class PanelWidget extends StatelessWidget {
   Widget buildAboutText() => Container(
         padding: const EdgeInsets.symmetric(horizontal: 24),
         child: Padding(
-          padding: const EdgeInsets.all(15.0),
+          padding: const EdgeInsets.all(12.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -75,11 +73,26 @@ class PanelWidget extends StatelessWidget {
               const SizedBox(height: 15),
               Column(
                 children: [
+                  //Speaking Skills
                   SkillBox(
                       icon: Icons.favorite,
                       iconColor: Colors.amber.shade900,
                       boxTitle: 'Speaking Skills',
                       execercisoNum: 16),
+
+                  //Reading Skills
+                  SkillBox(
+                      icon: Icons.person,
+                      iconColor: Colors.blue.shade800,
+                      boxTitle: 'Reading Skills',
+                      execercisoNum: 8),
+
+                  //Listening Skills
+                  SkillBox(
+                      icon: Icons.record_voice_over,
+                      iconColor: Colors.pink.shade800,
+                      boxTitle: 'Listening Skills',
+                      execercisoNum: 12),
                 ],
               )
             ],
