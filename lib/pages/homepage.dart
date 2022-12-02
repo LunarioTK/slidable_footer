@@ -10,16 +10,21 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  final panelController = PanelController();
+
   @override
   Widget build(BuildContext context) {
-    final panelHeightClosed = MediaQuery.of(context).size.height * 0.1;
+    final panelHeightClosed = MediaQuery.of(context).size.height * 0.4;
     final panelHeightOpen = MediaQuery.of(context).size.height * 0.7;
 
     return Scaffold(
       body: SlidingUpPanel(
+        controller: panelController,
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
         minHeight: panelHeightClosed,
         maxHeight: panelHeightOpen,
         panelBuilder: (controller) => PanelWidget(
+          panelController: panelController,
           controller: controller,
         ),
       ),

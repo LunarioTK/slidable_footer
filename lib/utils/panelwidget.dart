@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:footer_page/utils/skillsrow.dart';
+import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class PanelWidget extends StatelessWidget {
   final ScrollController controller;
-  const PanelWidget({super.key, required this.controller});
+  final PanelController panelController;
+  const PanelWidget(
+      {super.key, required this.controller, required this.panelController});
 
   @override
   Widget build(BuildContext context) {
@@ -10,30 +14,76 @@ class PanelWidget extends StatelessWidget {
       controller: controller,
       padding: EdgeInsets.zero,
       children: <Widget>[
-        const SizedBox(height: 36),
+        const SizedBox(height: 12),
+        buildHandle(),
+        const SizedBox(height: 18),
         buildAboutText(),
         const SizedBox(height: 24),
       ],
     );
   }
 
+  //Traço antes do About
+  Widget buildHandle() => GestureDetector(
+        onTap: togglePanel,
+        child: Center(
+          child: Container(
+            width: 40,
+            height: 5,
+            decoration: BoxDecoration(
+                color: Colors.grey[300],
+                borderRadius: const BorderRadius.vertical(
+                  top: Radius.circular(12),
+                )),
+          ),
+        ),
+      );
+
+  void togglePanel() => panelController.isPanelOpen
+      ? panelController.close()
+      : panelController.open();
+
+  //Tudo dentro do panel
   Widget buildAboutText() => Container(
         padding: const EdgeInsets.symmetric(horizontal: 24),
-        child: Column(
-          children: const [
-            Text(
-              'About',
-              style: TextStyle(
-                fontWeight: FontWeight.w600,
+        child: Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Excercises',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey[900],
+                    ),
+                  ),
+                  Text(
+                    '..',
+                    style: TextStyle(
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey[900],
+                    ),
+                  )
+                ],
               ),
-            ),
-            SizedBox(height: 12),
-            Text(
-                """On the surface, Flutter is a reactive, pseudo-declarative UI framework, in which the developer provides a mapping from application state to interface state, and the framework takes on the task of updating the interface at runtime when the application state changes. This model is inspired by work that came from Facebook for their own React framework, which includes a rethinking of many traditional design principles.'
-                
-                
-                In most traditional UI frameworks, the user interface’s initial state is described once and then separately updated by user code at runtime, in response to events. One challenge of this approach is that, as the application grows in complexity, the developer needs to be aware of how state changes cascade throughout the entire UI. For example, consider the following UI""")
-          ],
+              const SizedBox(height: 15),
+              Column(
+                children: [
+                  SkillBox(
+                      icon: Icons.favorite,
+                      iconColor: Colors.amber.shade900,
+                      boxTitle: 'Speaking Skills',
+                      execercisoNum: 16),
+                ],
+              )
+            ],
+          ),
         ),
       );
 }
